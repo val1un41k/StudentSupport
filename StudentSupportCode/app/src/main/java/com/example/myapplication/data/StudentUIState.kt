@@ -1,8 +1,17 @@
 package com.example.myapplication.data
 
 data class StudentUIState (
-    val studentId: String = "",
-    val studentEmail: String = "",
+    var studentId: String = "",
+    var studentName: String = "",
+    var studentSurname: String = "",
+    var studentEmail: String = "",
+    var studentPhoneNum: String = "",
     val studentPassword: String = "",
-    val modules: ArrayList<Module> = ArrayList()
+    var modules: ArrayList<StudentModule> = ArrayList()
 )
+
+data class StudentModule(
+    val moduleName: String = "",
+    var moduleStatus: String = "",
+
+    )

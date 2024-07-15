@@ -15,7 +15,7 @@ sealed class Screen (val route: String) {
 }
 
 object studentSupportRouter{
-    var currentScreen: MutableState<Screen> = mutableStateOf(Screen.HomeScreen)
+    var currentScreen: MutableState<Screen> = mutableStateOf(Screen.LoginScreen)
 
     fun navigateTo(destination:Screen){
         currentScreen.value = destination

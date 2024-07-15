@@ -4,6 +4,8 @@ plugins {
 
     id("org.jetbrains.kotlin.kapt")
     id("kotlin-kapt")
+
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -12,6 +14,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.myapplication"
+
         minSdk = 26
         targetSdk = 34
         versionCode = 1
@@ -52,6 +55,7 @@ android {
     }
 }
 
+
 val nav_version = "2.7.7"
 
 dependencies {
@@ -59,6 +63,7 @@ dependencies {
     //Dagger Hilt Android KTX extension functions for ViewModels and WorkManager classes
 
     implementation ("com.google.dagger:hilt-android:2.51.1")
+    implementation(libs.firebase.auth)
     kapt ("com.google.dagger:hilt-compiler:2.51.1")
 
     // Material Icons
@@ -68,11 +73,15 @@ dependencies {
     // Firebase
     implementation("com.google.firebase:firebase-analytics-ktx")
     // Firebase Bom
-    implementation(platform("com.google.firebase:firebase-bom:32.8.0"))
+    implementation(platform("com.google.firebase:firebase-bom:33.1.2"))
+
+    //Firebase Analytics
+    implementation("com.google.firebase:firebase-analytics")
     // Firebase Auth
     implementation("com.google.firebase:firebase-auth-ktx")
+    implementation("com.google.firebase:firebase-auth:23.0.0")
     // Firebase Firestore
-    implementation("com.google.firebase:firebase-firestore:24.11.0")
+    implementation("com.google.firebase:firebase-firestore:25.0.0")
     // Firebase Storage
     implementation("com.google.firebase:firebase-storage-ktx:20.0.0")
 

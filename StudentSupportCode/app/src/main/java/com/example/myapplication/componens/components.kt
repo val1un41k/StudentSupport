@@ -50,6 +50,7 @@ import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -67,6 +68,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.myapplication.R
+import com.example.myapplication.data.Module
 import com.example.myapplication.ui.theme.Secondary
 import com.google.firebase.auth.FirebaseAuth
 
@@ -271,7 +273,7 @@ fun HeadingTextComponentWithLogOut(value: String){
             })
             Spacer(modifier = Modifier.height(20.dp))
             Text(
-                text = "Local Artisans",
+                text = "Student Support",
                 modifier = Modifier
                     .fillMaxWidth()
                     .heightIn(),
@@ -317,7 +319,7 @@ fun HeadingTextComponentWithoutLogout(value: String){
         {
 
             Text(
-                text = "Local Artisans",
+                text = "Student Support",
                 modifier = Modifier
                     .fillMaxWidth()
                     .heightIn(),
@@ -379,13 +381,13 @@ fun logoutButton( onButtonClicked: () -> Unit){
 }
 
 @Composable
-fun ModulesDropDown(elements: ArrayList<String>): String{
+fun ModulesDropDown(elements: ArrayList<Module>): Module{
     var expanded by remember {mutableStateOf(false)}
     var selectedModule by remember {mutableStateOf(elements[0])}
 
     Box (modifier = Modifier.wrapContentSize()){
         Text(
-            text = selectedModule,
+            text = selectedModule.moduleName,
             modifier = Modifier.clickable { expanded = true}
         )
         DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
@@ -394,10 +396,30 @@ fun ModulesDropDown(elements: ArrayList<String>): String{
                 selectedModule = module
                 expanded = false
             }) {
-                Text(text = module)
+                Text(text = module.moduleName)
             }
             }
         }
     }
     return selectedModule
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun DisplayOnlyTextField(labelValue: String, textValue: String) {
+    TextField(
+        modifier = Modifier.clip(componentShapes.small)
+            .fillMaxWidth(),
+        label = { Text(text = labelValue) },
+        colors = TextFieldDefaults.outlinedTextFieldColors(
+            containerColor = Secondary,
+            focusedBorderColor = Primary,
+            focusedLabelColor = Primary,
+            cursorColor = Primary,
+        ),
+        keyboardOptions = KeyboardOptions.Default,
+        value = textValue,
+        onValueChange = {},
+        enabled = false
+    )
 }

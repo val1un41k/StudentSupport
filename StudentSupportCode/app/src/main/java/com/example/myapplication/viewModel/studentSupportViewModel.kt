@@ -2,6 +2,7 @@ package com.example.myapplication.viewModel
 
 import android.util.Log
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.myapplication.data.StudentUIState
@@ -11,7 +12,6 @@ class StudentSupportViewModel: ViewModel(){
     private val TAG = StudentSupportViewModel::class.simpleName
 
     var studentUIState = mutableStateOf(StudentUIState())
-
 
     val isUserLoggedIn: MutableLiveData<Boolean> = MutableLiveData()
 
@@ -59,13 +59,19 @@ class StudentSupportViewModel: ViewModel(){
 
     }
 
+    ////
+    ///////////TODO: UPDATE PROFILE CODE
+    ////
+
+    var showDialogAddStudyModule = mutableStateOf(false)
+
 
 }
 
 
 data class LoginUIState(
-    val loginEmail: String = "",
-    val loginPassword: String = "",
+    var loginEmail: String = "",
+    var loginPassword: String = "",
     val loginConfirmPassword: String = "",
     val uid: String = "",
 
