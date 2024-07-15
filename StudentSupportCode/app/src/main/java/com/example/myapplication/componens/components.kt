@@ -3,6 +3,7 @@ package com.example.myapplication.componens
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -14,7 +15,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
@@ -69,6 +72,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.myapplication.R
 import com.example.myapplication.data.Module
+import com.example.myapplication.navidation.Screen
+import com.example.myapplication.navidation.studentSupportRouter
 import com.example.myapplication.ui.theme.Secondary
 import com.google.firebase.auth.FirebaseAuth
 
@@ -268,7 +273,7 @@ fun HeadingTextComponentWithLogOut(value: String){
             logoutButton( onButtonClicked = {
 
                 FirebaseAuth.getInstance().signOut().also {
-//                    LocalArtisansRouter.navigateTo(Screen.HomeScreen)
+                    studentSupportRouter.navigateTo(Screen.LoginScreen)
                 }
             })
             Spacer(modifier = Modifier.height(20.dp))
@@ -385,7 +390,12 @@ fun ModulesDropDown(elements: ArrayList<Module>): Module{
     var expanded by remember {mutableStateOf(false)}
     var selectedModule by remember {mutableStateOf(elements[0])}
 
-    Box (modifier = Modifier.wrapContentSize()){
+    Box (modifier = Modifier
+        .wrapContentSize()
+        .padding(8.dp)
+        .background(Color.LightGray, shape = RoundedCornerShape(4.dp))
+        .border(1.dp, Color.Gray, RoundedCornerShape(4.dp))
+        .widthIn(min = 200.dp)){
         Text(
             text = selectedModule.moduleName,
             modifier = Modifier.clickable { expanded = true}

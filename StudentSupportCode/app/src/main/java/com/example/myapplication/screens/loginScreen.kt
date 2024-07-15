@@ -12,6 +12,7 @@ import androidx.compose.material.Text
 import androidx.compose.material3.Divider
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -21,6 +22,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.myapplication.R
 import com.example.myapplication.componens.ButtonComponent
 import com.example.myapplication.componens.HeadingTextComponentWithLogOut
+import com.example.myapplication.componens.HeadingTextComponentWithoutLogout
 import com.example.myapplication.componens.MyTextFieldComponent
 import com.example.myapplication.navidation.Screen
 import com.example.myapplication.navidation.studentSupportRouter
@@ -30,6 +32,11 @@ import com.example.myapplication.viewModel.StudentSupportViewModel
 @Composable
 fun LoginScreen(studentSupportViewModel: StudentSupportViewModel = viewModel()){
 
+    //take from Firebase list of modules
+    LaunchedEffect(key1=true){
+        studentSupportViewModel.getModules()
+    }
+
     Surface(
         Modifier
             .fillMaxSize()
@@ -38,7 +45,7 @@ fun LoginScreen(studentSupportViewModel: StudentSupportViewModel = viewModel()){
     ){
         Column( modifier = Modifier.fillMaxSize()){
 
-            HeadingTextComponentWithLogOut(value = "Login Screen")
+            HeadingTextComponentWithoutLogout(value = "Login Screen")
             Spacer(modifier = Modifier.height(20.dp))
 
             MyTextFieldComponent(labelValue = "Email",
