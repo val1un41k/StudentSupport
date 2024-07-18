@@ -1,5 +1,6 @@
 package com.example.myapplication.app
 
+import android.content.Intent
 import androidx.compose.animation.Crossfade
 import androidx.compose.material3.Surface
 import androidx.compose.foundation.layout.fillMaxSize
@@ -7,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.myapplication.LocationService
 import com.example.myapplication.navidation.Screen
 import com.example.myapplication.navidation.studentSupportRouter
 import com.example.myapplication.screens.AskingStudySupportScreen

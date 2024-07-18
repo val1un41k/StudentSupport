@@ -13,7 +13,9 @@ import com.example.myapplication.events.studentRegistrationEvent
 import com.example.myapplication.events.studentUpdateProfileEvent
 import com.example.myapplication.navidation.Screen
 import com.example.myapplication.navidation.studentSupportRouter
-import com.example.myapplication.screens.StudentsToPutOnMarkers
+import com.example.myapplication.userLatitude
+import com.example.myapplication.userLongitude
+
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.auth.FirebaseAuth
@@ -25,6 +27,7 @@ import kotlinx.coroutines.tasks.await
 
 class StudentSupportViewModel: ViewModel() {
     private val TAG = StudentSupportViewModel::class.simpleName
+
 
     val db = FirebaseFirestore.getInstance()
 
@@ -106,8 +109,13 @@ class StudentSupportViewModel: ViewModel() {
     fun loginEvent(event: studentLoginEvent) {
 
         when (event) {
+
             is studentLoginEvent.studentLoginButtonClicked -> {
+
+                homeLocation = LatLng(userLatitude, userLongitude)
+
                 login()
+
             }
 
             is studentLoginEvent.studentLoginEmailChanged -> {
@@ -391,7 +399,7 @@ class StudentSupportViewModel: ViewModel() {
     ////
 
     val limerick = LatLng(52.66, -8.63)
-    val homeLocation = LatLng(52.658664940642296, -8.633123277485389)
+    var homeLocation = LatLng(userLatitude, userLongitude)
     val defaultCameraPosition = CameraPosition.fromLatLngZoom(limerick, 12f)
 
     val showSelectedStudentInfoWindow = mutableStateOf(false)
