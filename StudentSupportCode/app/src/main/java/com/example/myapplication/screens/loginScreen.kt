@@ -24,6 +24,7 @@ import com.example.myapplication.componens.ButtonComponent
 import com.example.myapplication.componens.HeadingTextComponentWithLogOut
 import com.example.myapplication.componens.HeadingTextComponentWithoutLogout
 import com.example.myapplication.componens.MyTextFieldComponent
+import com.example.myapplication.events.studentLoginEvent
 import com.example.myapplication.navidation.Screen
 import com.example.myapplication.navidation.studentSupportRouter
 import com.example.myapplication.ui.theme.GrayColor
@@ -35,6 +36,7 @@ fun LoginScreen(studentSupportViewModel: StudentSupportViewModel = viewModel()){
     //take from Firebase list of modules
     LaunchedEffect(key1=true){
         studentSupportViewModel.getModules()
+        studentSupportViewModel.takeDataForAllStudentsFromFirebase()
     }
 
     Surface(
@@ -50,16 +52,22 @@ fun LoginScreen(studentSupportViewModel: StudentSupportViewModel = viewModel()){
 
             MyTextFieldComponent(labelValue = "Email",
                 painterResource(R.drawable.message),
-                onTextChanged = {studentSupportViewModel.loginUIState.value.loginEmail = it})
+                onTextChanged = {
+                studentSupportViewModel.loginEvent((studentLoginEvent.studentLoginEmailChanged(it)))
+                })
             Spacer(modifier = Modifier.height(20.dp))
 
             MyTextFieldComponent(labelValue = "Password",
                 painterResource(R.drawable.lock) ,
-                onTextChanged = {studentSupportViewModel.loginUIState.value.loginPassword = it})
+                onTextChanged = {
+                    studentSupportViewModel.loginEvent(studentLoginEvent.studentLoginPasswordChanged(it))}
+            )
             Spacer(modifier = Modifier.height(20.dp))
 
             ButtonComponent(value = "Login",
-                onButtonClicked = {studentSupportViewModel.login()})
+                onButtonClicked = {
+                    studentSupportViewModel.loginEvent(studentLoginEvent.studentLoginButtonClicked())
+                })
             Spacer(modifier = Modifier.height(20.dp))
 
             HorizontalDivider()

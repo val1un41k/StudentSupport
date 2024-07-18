@@ -11,7 +11,6 @@ sealed class Screen (val route: String) {
 
     object LoginScreen: Screen ("LoginScreen")
     object StudentRegistrationScreen: Screen ("StudentRegistrationScreen")
-    object UpdateProfileScreen: Screen ("UpdateProfileScreen")
 }
 
 object studentSupportRouter{

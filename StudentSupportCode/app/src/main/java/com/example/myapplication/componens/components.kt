@@ -261,7 +261,7 @@ fun HeadingTextComponentWithLogOut(value: String){
     Row(horizontalArrangement = Arrangement.SpaceBetween)
     {
         Image(
-            modifier = Modifier.size(200.dp),
+            modifier = Modifier.size(100.dp),
             painter = painterResource(id = R.drawable.student_support_logo),
             contentDescription = null,
         )
@@ -313,7 +313,7 @@ fun HeadingTextComponentWithoutLogout(value: String){
     Row(horizontalArrangement = Arrangement.SpaceBetween)
     {
         Image(
-            modifier = Modifier.size(200.dp),
+            modifier = Modifier.size(100.dp),
             painter = painterResource(id = R.drawable.student_support_logo),
             contentDescription = null,
         )

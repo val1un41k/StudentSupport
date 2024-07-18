@@ -1,5 +1,6 @@
 package com.example.myapplication.events
 
+import com.example.myapplication.data.Module
 import com.example.myapplication.data.StudentModule
 
 sealed class studentRegistrationEvent {
@@ -19,8 +20,12 @@ sealed class studentRegistrationEvent {
 
     data class StudentConfirmPasswordChanger(val studentConfirmPassword: String) : studentRegistrationEvent()
 
-    data class AddStudyModuleButtonClicked(val selectedModule: StudentModule) : studentRegistrationEvent()
+    data class StudentSelectedModuleToAddChanged(val selectedModuleToAdd: Module ) : studentRegistrationEvent()
 
-    sealed class RegistrationButtonClicked : studentRegistrationEvent()
+    data class StudentSelectedModuleStatusChanged(val Status: String): studentRegistrationEvent()
+
+    class AddStudyModuleButtonClicked : studentRegistrationEvent()
+
+    class RegistrationButtonClicked : studentRegistrationEvent()
 
 }

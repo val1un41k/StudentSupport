@@ -6,6 +6,7 @@ plugins {
     id("kotlin-kapt")
 
     id("com.google.gms.google-services")
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
 android {
@@ -44,6 +45,7 @@ android {
     }
     buildFeatures {
         compose = true
+        viewBinding = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
@@ -56,6 +58,7 @@ android {
 }
 
 
+
 val nav_version = "2.7.7"
 
 dependencies {
@@ -65,6 +68,10 @@ dependencies {
     implementation ("com.google.dagger:hilt-android:2.51.1")
     implementation(libs.firebase.auth)
     kapt ("com.google.dagger:hilt-compiler:2.51.1")
+
+    //Location Implementation
+    implementation ("com.google.android.gms:play-services-location:21.3.0")
+
 
     // Material Icons
     implementation("androidx.compose.material:material-icons-extended:1.6.4")

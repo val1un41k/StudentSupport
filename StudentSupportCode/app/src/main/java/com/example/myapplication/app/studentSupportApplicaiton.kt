@@ -13,7 +13,7 @@ import com.example.myapplication.screens.AskingStudySupportScreen
 import com.example.myapplication.screens.HomeScreen
 import com.example.myapplication.screens.LoginScreen
 import com.example.myapplication.screens.StudentRegistrationScreen
-import com.example.myapplication.screens.UpdateProfileScreen
+
 import com.example.myapplication.viewModel.StudentSupportViewModel
 
 @Composable
@@ -39,9 +39,6 @@ fun studentSupportApplicaiton(studentSupportViewModel: StudentSupportViewModel =
                 }
                 is Screen.StudentRegistrationScreen ->{
                     StudentRegistrationScreen()
-                }
-                is Screen.UpdateProfileScreen ->{
-                    UpdateProfileScreen()
                 }
                 Screen.CreatingOfferSupportScreen -> TODO()
             }

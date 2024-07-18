@@ -49,12 +49,6 @@ import dagger.Module
 @Composable
 fun StudentRegistrationScreen(studentSupportViewModel: StudentSupportViewModel = viewModel()) {
 
-
-    var studentPassword = rememberSaveable { mutableStateOf("") }
-    val confirmPassword = rememberSaveable { mutableStateOf("") }
-    val stidentSelectedModules = rememberSaveable { mutableStateOf(ArrayList<StudentModule>()) }
-
-
     Surface(
         modifier = Modifier
             .fillMaxSize()
@@ -78,7 +72,6 @@ fun StudentRegistrationScreen(studentSupportViewModel: StudentSupportViewModel =
                         })
                     Spacer(modifier = Modifier.height(20.dp))
 
-
                     Text(text = "Second Name")
                     MyTextFieldComponent(labelValue = studentSupportViewModel.registrationUIState.value.studentSurname,
                         painterResource(R.drawable.message),
@@ -90,7 +83,6 @@ fun StudentRegistrationScreen(studentSupportViewModel: StudentSupportViewModel =
                             )
                         })
                     Spacer(modifier = Modifier.height(20.dp))
-
 
                     Text(text = "Phone Number")
                     MyTextFieldComponent(labelValue = studentSupportViewModel.registrationUIState.value.studentPhoneNum,
@@ -104,7 +96,6 @@ fun StudentRegistrationScreen(studentSupportViewModel: StudentSupportViewModel =
                         })
                     Spacer(modifier = Modifier.height(20.dp))
 
-
                     Text(text = "Email")
                     MyTextFieldComponent(labelValue = studentSupportViewModel.registrationUIState.value.studentEmail,
                         painterResource(R.drawable.message),
@@ -116,8 +107,6 @@ fun StudentRegistrationScreen(studentSupportViewModel: StudentSupportViewModel =
                             )
                         })
                     Spacer(modifier = Modifier.height(20.dp))
-
-
 
                     Text(text = "Place To Meet")
                     Spacer(modifier = Modifier.height(10.dp))
@@ -146,7 +135,6 @@ fun StudentRegistrationScreen(studentSupportViewModel: StudentSupportViewModel =
                         })
                     Spacer(modifier = Modifier.height(20.dp))
 
-
                     Text(text = "Password")
                     MyTextFieldComponent(labelValue = studentSupportViewModel.studentPassword.value,
                         painterResource(R.drawable.lock),
@@ -158,7 +146,6 @@ fun StudentRegistrationScreen(studentSupportViewModel: StudentSupportViewModel =
                             )
                         })
                     Spacer(modifier = Modifier.height(20.dp))
-
 
                     val revealConfirmPasswordText = remember { mutableStateOf(false) }
                     MyTextFieldComponent(labelValue = studentSupportViewModel.studentConfirmPassword.value,
@@ -173,17 +160,18 @@ fun StudentRegistrationScreen(studentSupportViewModel: StudentSupportViewModel =
                         })
                     Spacer(modifier = Modifier.height(20.dp))
 
-
                     //put dropdown menu of the courses and option to add
 
-                    Spacer(modifier = Modifier.height(10.dp))
+                    Spacer(modifier = Modifier.height(20.dp))
                     Row(Modifier.fillMaxWidth()) {
                         Column {
                             val studentModules = studentSupportViewModel.moduleList.value
-                            studentSupportViewModel.selectedModuleToAdd.value =
+                            studentSupportViewModel.onEvent(studentRegistrationEvent.StudentSelectedModuleToAddChanged(
                                 ModulesDropDown(elements = studentModules)
-                            Spacer(modifier = Modifier.height(10.dp))
-                            studentSupportViewModel.selectedModuleStatus.value =
+                            ))
+
+                            Spacer(modifier = Modifier.height(20.dp))
+                            studentSupportViewModel.onEvent(studentRegistrationEvent.StudentSelectedModuleStatusChanged(
                                 moduleStatusDropDown(
                                     elements = arrayListOf(
                                         "Not Started",
@@ -191,51 +179,17 @@ fun StudentRegistrationScreen(studentSupportViewModel: StudentSupportViewModel =
                                         "Completed"
                                     )
                                 )
-                            Spacer(modifier = Modifier.height(10.dp))
+                            ))
+                            Spacer(modifier = Modifier.height(20.dp))
                             ButtonComponent(value = "add Module", onButtonClicked = {
-
-                                studentSupportViewModel.onEvent(
-                                    studentRegistrationEvent.AddStudyModuleButtonClicked(
-                                        StudentModule(
-                                            studentSupportViewModel.selectedModuleToAdd.value.moduleID,
-                                            studentSupportViewModel.selectedModuleToAdd.value.moduleName,
-                                            studentSupportViewModel.selectedModuleStatus.value
-                                        )
-                                    )
-                                )
+                                studentSupportViewModel.onEvent(studentRegistrationEvent.AddStudyModuleButtonClicked())
                             })
                         }
                         Spacer(Modifier.height(20.dp))
                     }
-
-                    var showText = remember { mutableStateOf(false) }
                     ButtonComponent(value = "Register", onButtonClicked = {
-
-//                        if (
-//                            studentSupportViewModel.registrationUIState.value.studentName.isNotEmpty() &&
-//                            studentSupportViewModel.registrationUIState.value.studentSurname.isNotEmpty() &&
-//                            studentSupportViewModel.registrationUIState.value.studentEmail.isNotEmpty() &&
-//                            studentSupportViewModel.registrationUIState.value.meetLocationLatitude.isNotEmpty() &&
-//                            studentSupportViewModel.registrationUIState.value.meetLocationLongitude.isNotEmpty() &&
-//                            studentSupportViewModel.registrationUIState.value.studentPhoneNum.isNotEmpty() &&
-//                            studentSupportViewModel.studentSelectedModules.value.isNotEmpty() &&
-//                            studentSupportViewModel.studentPassword.value.isNotEmpty() &&
-//                            studentSupportViewModel.studentConfirmPassword.value.isNotEmpty() &&
-//                            studentSupportViewModel.studentPassword.value.equals(studentSupportViewModel.studentConfirmPassword.value)
-//                        ) {
-                            studentSupportViewModel.studentPassword.value = studentPassword.value
-
-                            studentSupportViewModel.registerStudentInFirebaseAuth()
-
-//                        } else {
-//                            //show error message please fulfill all fields for registration
-//                            showText.value = true
-//                        }
+                            studentSupportViewModel.onEvent(studentRegistrationEvent.RegistrationButtonClicked())
                     })
-
-                    if (showText.value) Text(text = "Please Fulfill All Fields for Registration or Password Not Match")
-                    Spacer(modifier = Modifier.height(20.dp))
-
                 }
             }
         }
@@ -245,6 +199,7 @@ fun StudentRegistrationScreen(studentSupportViewModel: StudentSupportViewModel =
 
 @Composable
 fun moduleStatusDropDown(elements: ArrayList<String>): String {
+
     var expanded by remember { mutableStateOf(false) }
     var selectedModuleStatus by remember { mutableStateOf(elements[0]) }
 
@@ -254,10 +209,12 @@ fun moduleStatusDropDown(elements: ArrayList<String>): String {
         .background(Color.LightGray, shape = RoundedCornerShape(4.dp))
         .border(1.dp, Color.Gray, RoundedCornerShape(4.dp))
         .widthIn(min = 200.dp)){
+
         Text(
             text = selectedModuleStatus,
             modifier = Modifier.clickable { expanded = true}
         )
+
         DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
             elements.forEach {
                     status -> DropdownMenuItem(onClick = {
@@ -268,6 +225,7 @@ fun moduleStatusDropDown(elements: ArrayList<String>): String {
             }
             }
         }
+
     }
     return selectedModuleStatus
 }
