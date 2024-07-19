@@ -398,9 +398,10 @@ class StudentSupportViewModel: ViewModel() {
     ///////////TODO: Show Students Map Screen Code
     ////
 
-    val limerick = LatLng(52.66, -8.63)
+    val cameralocation = LatLng(52.6680, -8.6305)
+
     var homeLocation = LatLng(userLatitude, userLongitude)
-    val defaultCameraPosition = CameraPosition.fromLatLngZoom(limerick, 12f)
+    val defaultCameraPosition = CameraPosition.fromLatLngZoom(cameralocation, 12f)
 
     val showSelectedStudentInfoWindow = mutableStateOf(false)
 

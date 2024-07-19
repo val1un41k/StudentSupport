@@ -131,8 +131,6 @@ fun GoogleMapView(
     content: @Composable () -> Unit = {}
 ) {
 
-    val limerick = rememberMarkerState(position = studentSupportViewModel.limerick)
-
     var uiSettings by remember { mutableStateOf(MapUiSettings(compassEnabled = false)) }
     var shouldAnimateZoom by remember { mutableStateOf(true) }
     var ticker by remember { mutableStateOf(0) }
