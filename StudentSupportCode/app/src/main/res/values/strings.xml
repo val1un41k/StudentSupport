@@ -1,6 +1,0 @@
-<resources>
-    <string name="app_name">My Application</string>
-    <string name="hide_password" translatable="false">Hide password</string>
-    <string name="show_password" translatable="false">Show password</string>
-    <string name="title_activity_home_screen">HomeScreen</string>
-</resources>
